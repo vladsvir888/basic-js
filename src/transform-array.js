@@ -22,13 +22,25 @@ function transform(arr) {
 
   copy.forEach((item, index) => {
     if (item === '--double-next') {
-      copy.splice(index, 1, index + 1);
+      if (copy[copy.length - 1] !== '--double-next') {
+        copy.splice(index, 1, index + 1);
+      } else {
+        copy.splice(index, 1);
+      }
     } else if (item === '--discard-prev') {
-      copy.splice(index - 1, 2);
+      if (index > 0) {
+        copy.splice(index - 1, 2);
+      } else {
+        copy.splice(index, 1);
+      }
     } else if (item === '--discard-next') {
       copy.splice(index, 2);
     } else if (item === '--double-prev') {
-      copy.splice(index, 1, index);
+      if (index > 0) {
+        copy.splice(index, 1, index);
+      } else {
+        copy.splice(index, 1);
+      }
     }
   });
 
